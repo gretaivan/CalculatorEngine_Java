@@ -98,7 +98,7 @@ public class Main {
 				"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" 
 		};
 		double value = 0;
-		for (int i = 0; i < words.length; index++) {
+		for (int i = 0; i < words.length; i++) {
 			if(args.equals(words[i])) {
 				if(i < 10) {
 					value = i; 
