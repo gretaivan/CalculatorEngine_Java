@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
 
@@ -25,8 +26,10 @@ public class Main {
             for(double result : results) {
             	System.out.println(result);
             }
-          //handling custom input from the command line arguments
-        } else if (args.length == 3) {
+         
+        } else if(args.length == 1 && args[0].equals("interactive")) { // interactive mode if user typed interactive
+        	executeInteractively();
+        } else if (args.length == 3) {  //handling custom input from the command line arguments
         	handleCommandLine(args); 
         } else {
         	System.out.println("Please provide operation code and 2 numeric values");
@@ -56,6 +59,23 @@ public class Main {
 		return result; 
 	}
 	
+	static void executeInteractively() {
+		System.out.println("Enter an operation and two numbers: ");
+		Scanner in = new Scanner(System.in);
+		String input = in.nextLine();
+		String[] inputArray = input.split(" ");
+		performOperation(inputArray); 
+	}
+	
+	private static void performOperation(String[] arr) {
+		char opCode = getOpCode(arr[0]);
+		double left = valueFromWord(arr[1]);
+		double right = valueFromWord(arr[2]);
+		
+		double result = execute(opCode, left, right);
+		System.out.println(result);
+	}
+	
 	private static void handleCommandLine(String[] args) {
 		
 		char opCode = args[0].charAt(0);
@@ -66,12 +86,13 @@ public class Main {
 		System.out.println("Custom input result: " + result); 
 	}
 	
-	public char getOpCode (String args) {
+	//extracts the operation code from the command line
+	public static char getOpCode (String args) {
 		char opCode = args.charAt(0); 
 		return opCode; 
 	}
-	
-	double valueFromWord(String args) {
+	//translates the command line input to the double
+	public static double valueFromWord(String args) {
 		String [] words = {
 				"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
 				"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" 
