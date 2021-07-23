@@ -18,12 +18,26 @@ public class Main {
         	results[i] = execute(ops[i], leftVals[i], rightVals[i]);
         }
         
-        //enhanced loop
-        for(double result : results) {
-        	System.out.println(result);
+        
+      
+        if (args.length == 0) {
+        	 //enhanced loop
+            for(double result : results) {
+            	System.out.println(result);
+            }
+          //handling custom input from the command line arguments
+        } else if (args.length == 3) {
+        	handleCommandLine(args); 
+        } else {
+        	System.out.println("Please provide operation code and 2 numeric values");
         }
-	}
+       
+        
+        
+	}  
 	
+	
+
 	static double execute(char opCode, double left, double right) {
 		double result; 
 		switch(opCode) {
@@ -45,6 +59,15 @@ public class Main {
 				break;
 		}
 		return result; 
+	}
+	
+	private static void handleCommandLine(String[] args) {
+		char opCode = args[0].charAt(0);
+		double left = Double.parseDouble(args[1]);
+		double right = Double.parseDouble(args[2]);
+		
+		double result = execute(opCode, left, right); 
+		System.out.println("Custom input result: " + result); 
 	}
 
 }
