@@ -30,14 +30,9 @@ public class Main {
         	handleCommandLine(args); 
         } else {
         	System.out.println("Please provide operation code and 2 numeric values");
-        }
-       
-        
-        
+        }       
 	}  
 	
-	
-
 	static double execute(char opCode, double left, double right) {
 		double result; 
 		switch(opCode) {
@@ -62,6 +57,7 @@ public class Main {
 	}
 	
 	private static void handleCommandLine(String[] args) {
+		
 		char opCode = args[0].charAt(0);
 		double left = Double.parseDouble(args[1]);
 		double right = Double.parseDouble(args[2]);
@@ -69,5 +65,30 @@ public class Main {
 		double result = execute(opCode, left, right); 
 		System.out.println("Custom input result: " + result); 
 	}
-
+	
+	public char getOpCode (String args) {
+		char opCode = args.charAt(0); 
+		return opCode; 
+	}
+	
+	double valueFromWord(String args) {
+		String [] words = {
+				"zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
+				"0", "1", "2", "3", "4", "5", "6", "7", "8", "9" 
+		};
+		double value = 0;
+		for (int i = 0; i < words.length; index++) {
+			if(args.equals(words[i])) {
+				if(i < 10) {
+					value = i; 
+					break;
+				} else {
+					value = i - 10; 
+					break;
+				}
+			}
+		}
+		
+		return value; 
+	}
 }
