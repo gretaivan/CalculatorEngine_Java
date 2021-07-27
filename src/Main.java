@@ -49,7 +49,7 @@ public class Main {
 				result = left * right; 
 				break; 
 			case 'd': 
-				result = left / right; 
+				result = right != 0 ? left / right : 0.0; 
 				break; 
 			default:
 				System.out.println("Invalid operation code: " + opCode);
@@ -71,11 +71,49 @@ public class Main {
 		char opCode = getOpCode(arr[0]);
 		double left = valueFromWord(arr[1]);
 		double right = valueFromWord(arr[2]);
-		
 		double result = execute(opCode, left, right);
-		System.out.println(result);
+		displayResult(left, opCode, right, result);
 	}
 	
+	
+	private static void displayResult(double left, char opCode, double right, double result) {
+		StringBuilder sb = new StringBuilder(20); 
+		sb.append(left);
+		sb.append(" "); 
+		
+		char op = extractOperationSymbol(opCode);
+		sb.append(op);
+		sb.append(" ");
+		sb.append(right);
+		sb.append(" = "); 
+		sb.append(result);
+		String message = sb.toString(); 
+		System.out.println(message);
+	}
+	
+	private static char extractOperationSymbol(char x) {
+		char op; 
+		
+		switch(x) {
+			case 'a':
+				op = '+';
+				break;
+			case 's': 
+				op = '-';
+				break; 
+			case 'm': 
+				op = '*';
+				break; 
+			case 'd': 
+				op = '/';
+				break; 
+			default:
+				op = '?';
+				break;
+		}
+		return op; 
+	}
+
 	private static void handleCommandLine(String[] args) {
 		
 		char opCode = args[0].charAt(0);
