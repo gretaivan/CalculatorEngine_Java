@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -33,8 +34,23 @@ public class Main {
         	handleCommandLine(args); 
         } else {
         	System.out.println("Please provide operation code and 2 numeric values");
-        }       
+        }    
 	}  
+	
+	   //class use 
+    static void performCalculations() {
+        MathEquation[] equations = new MathEquation[4];
+        equations[0] = new MathEquation('d', 100.0d, 50.0d);
+        equations[1] = new MathEquation('a', 25.0d, 92.0d);
+        equations[2] = new MathEquation('s', 225.0d, 17.0d);
+        equations[3] = new MathEquation('m', 11.0d, 3.0d);
+
+        for(MathEquation equation : equations) {
+            equation.execute();
+            System.out.println("result = " + equation.getResult());
+        }
+
+    }
 	
 	static double execute(char opCode, double left, double right) {
 		double result; 
@@ -59,6 +75,9 @@ public class Main {
 		return result; 
 	}
 	
+   
+	
+	
 	static void executeInteractively() {
 		System.out.println("Enter an operation and two numbers: ");
 		Scanner in = new Scanner(System.in);
@@ -69,13 +88,28 @@ public class Main {
 	
 	private static void performOperation(String[] arr) {
 		char opCode = getOpCode(arr[0]);
-		double left = valueFromWord(arr[1]);
-		double right = valueFromWord(arr[2]);
-		double result = execute(opCode, left, right);
-		displayResult(left, opCode, right, result);
+		
+		if(opCode == 'w') {
+			handleWhen(arr);
+		} else {
+			double left = valueFromWord(arr[1]);
+			double right = valueFromWord(arr[2]);
+			double result = execute(opCode, left, right);
+			displayResult(left, opCode, right, result);
+		}		
 	}
 	
 	
+	private static void handleWhen(String[] arr) {
+		 
+		LocalDate startDate = LocalDate.parse(arr[1]); 
+		long daysToAdd = (long)valueFromWord(arr[2]);
+		LocalDate newDate = startDate.plusDays(daysToAdd);
+		String formatted = String.format("%s plus %d days is %s", startDate, daysToAdd, newDate);
+		System.out.println(formatted);
+		
+	}
+
 	private static void displayResult(double left, char opCode, double right, double result) {
 		StringBuilder sb = new StringBuilder(20); 
 		sb.append(left);
